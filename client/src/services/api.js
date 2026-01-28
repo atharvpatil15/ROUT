@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/v1',
+  baseURL: 'https://rout-k3j1.onrender.com/api/v1',
   withCredentials: true, // Important for sending cookies
   headers: {
     'Content-Type': 'application/json',

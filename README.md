@@ -37,103 +37,40 @@ ROUT is a premium, high-end e-commerce platform designed for Gen Z and Millennia
 ### **2. Aesthetic Authentication**
 *   **Split-Screen Auth Page:** A beautiful, animated login/signup form with high-quality imagery.
 *   **Hybrid Login:** Users can sign up via Email/Password or **Continue with Google**.
-*   **Security:** Passwords are hashed, and sessions are locked via secure HTTP-Only cookies.
-
-### **3. Gen Z "Vibe" Elements**
-*   **The Manifesto:** A kinetic typography section that reveals the brand's "Anti-Hustle" message word-by-word.
-*   **Micro-Interactions:** Buttons that respond to hover, loading spinners, and staggered fade-ins.
-*   **Editorial Copy:** Carefully crafted narratives for each product (e.g., "The Natural Reset," "High-Octane Focus").
+*   **Session Persistence:** Fixed "logout on refresh" bug by implementing a `/me` session verification endpoint and aligning `SESSION_SECRET` across the stack.
+*   **Security:** Passwords are hashed, and sessions are locked via secure HTTP-Only cookies with `SameSite: Lax` configuration.
 
 ---
 
 ## 🚀 Setup & Installation
-
-### **Prerequisites**
-*   Node.js (v16+)
-*   MongoDB (Local or Atlas)
-*   Google Cloud Console Account (for OAuth)
-
-### **1. Clone & Install**
-```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/rout.git
-cd rout
-
-# 2. Install Server Dependencies
-cd server
-npm install
-
-# 3. Install Client Dependencies
-cd ../client
-npm install
-```
-
-### **2. Environment Configuration**
-Create a `.env` file in the `server` directory:
-
-```env
-# Server
-PORT=5000
-NODE_ENV=development
-
-# Database
-DB_URL=mongodb://localhost:27017/rout
-
-# Security
-SESSION_SECRET=your_super_long_random_string
-SESSION_EXPIRY=90d
-COOKIE_EXPIRY=90
-
-# Google OAuth (From Google Cloud Console)
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-```
-
-### **3. Run the Project**
-Open two terminal windows:
-
-**Terminal 1 (Backend):**
-```bash
-cd server
-npm run dev
-```
-
-**Terminal 2 (Frontend):**
-```bash
-cd client
-npm run dev
-```
-
-Visit **`http://localhost:5173`** to enter the ritual.
+... (keep existing setup) ...
 
 ---
 
 ## 🔮 Roadmap to Production
-To take ROUT from a high-fidelity prototype to a live business, we need to complete the following:
 
-### **Phase 1: Commerce Logic (Immediate Next Steps)**
-- [ ] **Admin Dashboard:** A private panel to Create/Edit/Delete products and view orders.
-- [ ] **Order Schema:** Update the backend to store user orders and cart history.
-- [ ] **Payment Gateway:** Integrate **Stripe** or **Razorpay** to handle actual transactions.
-- [ ] **Stock Management:** Automatically decrement product inventory upon purchase.
+### **Phase 1: The "Engine" (Product Management)**
+- [ ] **Dynamic Sourcing:** Move hardcoded tea products from `Home.jsx` to the MongoDB database.
+- [ ] **Admin Dashboard:** Create a private `/admin` route for the ROUT team to Add/Edit/Delete products and manage stock levels.
+- [ ] **API Integration:** Update frontend to fetch real-time product data using Axios.
 
-### **Phase 2: User Account Features**
-- [ ] **Profile Page:** Allow users to view their Order History and saved addresses.
-- [ ] **Address Book:** Save shipping details for faster checkout.
-- [ ] **Wishlist:** Allow users to save products for later.
+### **Phase 2: The "Transaction" (Cart & Checkout)**
+- [ ] **Persistent Cart:** Save the shopping bag to `LocalStorage` so it survives refreshes.
+- [ ] **Order Model:** Implement a backend `Order` schema to track purchases, status (Pending/Shipped), and customer details.
+- [ ] **Payment Integration:** Connect a gateway (Stripe/Razorpay) to process actual revenue.
 
-### **Phase 3: DevOps & Deployment**
-- [ ] **Cloud Database:** Migrate local MongoDB to **MongoDB Atlas**.
-- [ ] **Email Service:** Integrate **SendGrid** or **Nodemailer** for "Welcome" and "Order Confirmation" emails.
-- [ ] **Deployment:**
-    -   Frontend: Vercel or Netlify.
-    -   Backend: Render, Railway, or AWS.
-- [ ] **Domain:** Connect `www.rout.tea` (or similar) with SSL.
+### **Phase 3: The "User" (Retention)**
+- [ ] **User Dashboard:** Create a `/profile` page for customers to view their order history and update preferences.
+- [ ] **Email Rituals:** Automated emails for "Welcome," "Order Received," and "Shipped" using Nodemailer/SendGrid.
+
+### **Phase 4: Deployment & Polish**
+- [ ] **Database Migration:** Move from local MongoDB to MongoDB Atlas.
+- [ ] **Cloud Hosting:** Deploy backend (Render/Railway) and frontend (Vercel).
+- [ ] **SEO & Performance:** Optimize image sizes and meta-tags for the "Zen" aesthetic.
 
 ---
 
-## 📂 Project Structure
-
+*Engineered with 🍵 and Stillness.*
 ```text
 ROUT/
 ├── client/                 # React Frontend

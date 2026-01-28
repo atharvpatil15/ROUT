@@ -142,7 +142,7 @@ const Auth = () => {
 
             {/* Google Button */}
             <a 
-                href="http://localhost:5000/api/v1/users/google"
+                href="https://rout-k3j1.onrender.com/api/v1/users/google"
                 className="w-full border border-rout-soot/10 bg-white/50 flex items-center justify-center py-3.5 hover:bg-white hover:shadow-md transition-all duration-300 group rounded-sm"
             >
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-4 h-4 mr-3 grayscale group-hover:grayscale-0 transition-all" />

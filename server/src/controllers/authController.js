@@ -101,5 +101,6 @@ exports.getMe = (req, res) => {
 // Google Callback Controller
 exports.googleCallback = (req, res) => {
   // Passport attaches user to req.user
-  createSendToken(req.user, 200, res, 'http://localhost:5173/'); 
+  const frontendUrl = process.env.NODE_ENV === 'production' ? 'https://your-live-frontend.com' : 'http://localhost:5173/';
+  createSendToken(req.user, 200, res, frontendUrl); 
 };

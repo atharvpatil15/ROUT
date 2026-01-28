@@ -2,9 +2,31 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product, index }) => {
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAction = (e) => {
+    e.stopPropagation();
+    if (!user) {
+      navigate('/login');
+    } else {
+      addToCart(product);
+    }
+  };
+
+  const handleCardClick = () => {
+    if (!user) {
+      navigate('/login');
+    } else {
+      // In the future, this could navigate to a Product Details page
+      // navigate(`/product/${product.id}`);
+    }
+  };
 
   return (
     <motion.div
@@ -12,7 +34,8 @@ const ProductCard = ({ product, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-white p-6 rounded-sm border border-rout-soot/5 hover:border-rout-soot/20 transition-all duration-500"
+      onClick={handleCardClick}
+      className="group bg-white p-6 rounded-sm border border-rout-soot/5 hover:border-rout-soot/20 transition-all duration-500 cursor-pointer"
     >
       {/* Small Image Container */}
       <div className="relative overflow-hidden aspect-square bg-rout-paper mb-6 rounded-sm">
@@ -27,10 +50,7 @@ const ProductCard = ({ product, index }) => {
         {/* Quick Add Overlay */}
         <div className="absolute bottom-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
             <button
-                onClick={(e) => {
-                    e.stopPropagation();
-                    addToCart(product);
-                }}
+                onClick={handleAction}
                 className="bg-rout-soot text-white p-3 rounded-full shadow-xl hover:bg-rout-matcha transition-colors"
             >
                 <Plus size={20} />
