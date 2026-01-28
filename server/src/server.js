@@ -21,3 +21,8 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
+
+app.use(cors({
+  origin: ["https://rout-seven.vercel.app/"],
+  credentials: true
+}));
