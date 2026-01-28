@@ -23,8 +23,8 @@ const createSendToken = (user, statusCode, res, redirectUrl = null) => {
       Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: true, // MUST be true for SameSite=None
-    sameSite: 'none', // Required for Cross-Site (Vercel -> Render)
+    secure: true, // Always true for Vercel/Render
+    sameSite: 'none',
   };
 
   res.cookie('jwt', token, cookieOptions);
@@ -101,6 +101,6 @@ exports.getMe = (req, res) => {
 // Google Callback Controller
 exports.googleCallback = (req, res) => {
   // Passport attaches user to req.user
-  const frontendUrl = process.env.NODE_ENV === 'production' ? 'https://your-live-frontend.com' : 'http://localhost:5173/';
+  const frontendUrl = 'https://rout-seven.vercel.app'; 
   createSendToken(req.user, 200, res, frontendUrl); 
 };
