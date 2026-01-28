@@ -8,17 +8,32 @@ const app = express();
 
 // 1) GLOBAL MIDDLEWARES
 // Implement CORS
-const allowedOrigins = ['http://localhost:5173', 'https://rout-seven.vercel.app'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://rout-seven.vercel.app',
+  'https://rout-seven.vercel.app/' // Add version with slash just in case
+];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
+    
+    // Normalize: remove trailing slash from incoming origin for comparison
+    const normalizedOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
+    
+    // Check if the normalized origin (or the exact one) is in our list
+    const isAllowed = allowedOrigins.some(o => {
+        const normO = o.endsWith('/') ? o.slice(0, -1) : o;
+        return normO === normalizedOrigin;
+    });
+
+    if (!isAllowed) {
       var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     }
-    return callback(null, true);
+    
+    // Return the EXACT origin sent by the browser to avoid mismatch
+    return callback(null, origin);
   },
   credentials: true,
 }));
