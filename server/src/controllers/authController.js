@@ -23,8 +23,8 @@ const createSendToken = (user, statusCode, res, redirectUrl = null) => {
       Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: true, // MUST be true for SameSite=None
+    sameSite: 'none', // Required for Cross-Site (Vercel -> Render)
   };
 
   res.cookie('jwt', token, cookieOptions);

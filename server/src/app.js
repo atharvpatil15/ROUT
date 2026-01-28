@@ -6,6 +6,9 @@ const authRouter = require('./routes/authRoutes');
 
 const app = express();
 
+// Required for secure cookies on Render
+app.set('trust proxy', 1);
+
 // 1) GLOBAL MIDDLEWARES
 // Implement CORS
 const allowedOrigins = [
