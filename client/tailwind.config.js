@@ -9,11 +9,13 @@ export default {
       colors: {
         rout: {
           paper: '#F9F8F4',    // Very subtle cream
-          soot: '#2C2C2C',     // Soft charcoal
-          matcha: '#6B8E23',   // Muted sophisticated green
-          spice: '#D2691E',    // Warm earthy tone (Chocolate/Cinnamon)
-          gold: '#C5A059',     // Rich subtle gold
-          stone: '#E5E5E0',    // Secondary background
+          soot: '#2C2C2C',     // Soft charcoal (Restored)
+          matcha: '#6b8e23',   // Your new Matcha Green
+          forest: '#1A2F23',   // Deep Forest Green
+          spice: '#D2691E',    
+          gold: '#C5A059',     
+          stone: '#E5E5E0',    
+          wine: '#4c0c0f',
         }
       },
       fontFamily: {

@@ -12,3 +12,10 @@
     @apply font-serif;
   }
 }
+
+@layer components {
+  /* Creating a specific class for the matcha buttons */
+  .btn-matcha {
+    @apply bg-rout-matcha text-white border-2 border-rout-matcha hover:bg-transparent hover:text-rout-matcha transition-all duration-300;
+  }
+}

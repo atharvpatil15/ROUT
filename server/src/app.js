@@ -3,8 +3,11 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('./config/passport');
 const authRouter = require('./routes/authRoutes');
+const productRouter = require('./routes/productRoutes');
 
 const app = express();
+
+// Required for secure cookies on Render
 
 // Required for secure cookies on Render
 app.set('trust proxy', 1);
@@ -49,6 +52,7 @@ app.use(cookieParser());
 
 // 2) ROUTES
 app.use('/api/v1/users', authRouter);
+app.use('/api/v1/products', productRouter);
 
 // 3) UNHANDLED ROUTES
 app.all('*', (req, res, next) => {

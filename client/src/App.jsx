@@ -11,9 +11,11 @@ import { CartProvider } from './context/CartContext';
 import SmoothScroll from './components/SmoothScroll';
 import CartSidebar from './components/CartSidebar';
 import ScrollToTop from './components/ScrollToTop';
+import AdminRoute from './components/AdminRoute';
+import AdminDashboard from './pages/Admin/Dashboard';
+import ProductForm from './pages/Admin/ProductForm';
 
 // Placeholders for other pages
-const Shop = () => <div className="p-20 text-center font-serif text-3xl">Shop Page</div>;
 const NotFound = () => <div className="p-20 text-center font-serif text-3xl">404 - Not Found</div>;
 
 function App() {
@@ -26,11 +28,28 @@ function App() {
           <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route index element={<Home />} />
-              <Route path="shop" element={<Shop />} />
               <Route path="about" element={<About />} />
               <Route path="contact" element={<Contact />} />
               <Route path="login" element={<Auth />} />
               <Route path="checkout" element={<Checkout />} />
+              
+              {/* Admin Routes */}
+              <Route path="admin" element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              } />
+              <Route path="admin/products/new" element={
+                <AdminRoute>
+                  <ProductForm />
+                </AdminRoute>
+              } />
+              <Route path="admin/products/edit/:id" element={
+                <AdminRoute>
+                  <ProductForm />
+                </AdminRoute>
+              } />
+
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

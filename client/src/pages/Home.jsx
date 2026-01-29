@@ -1,59 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ParallaxHero from '../components/ui/ParallaxHero';
 import ProductCard from '../components/ui/ProductCard';
 import Manifesto from '../components/ui/Manifesto';
-
-// Local Assets
-import masalaImg from '../assets/masala.jpg';
-import greenImg from '../assets/green.jpg';
-import orthodoxImg from '../assets/orthodox.jpg';
-
-const PRODUCTS = [
-    { 
-        id: 1, 
-        name: 'Masala Chai', 
-        price: 45, 
-        image: masalaImg,
-        description: 'The Ritual of Spice. A high-octane blend of manual-ground cloves, cardamom, and black pepper. Engineered for focus and the early morning grind.'
-    },
-    { 
-        id: 2, 
-        name: 'Green Tea', 
-        price: 38, 
-        image: greenImg,
-        description: 'The Natural Reset. Hand-picked antioxidant power to clear the fog. Clean energy, zero crash, pure vibrancy.'
-    },
-    { 
-        id: 3, 
-        name: 'Orthodox Tea', 
-        price: 62, 
-        image: orthodoxImg,
-        description: 'The Artisan’s Standard. Traditional whole-leaf processing for a deep, malty profile. For those who respect the craft of tea.'
-    },
-];
+import api from '../services/api';
 
 const Home = () => {
   const location = useLocation();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [filters, setFilters] = useState(['All']);
 
+  // 1. Fetch Products from Backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await api.get('/products');
+        const fetchedProducts = res.data?.data?.products;
+        
+        if (Array.isArray(fetchedProducts)) {
+            const mappedProducts = fetchedProducts.map(p => ({
+                id: p._id,
+                name: p.name,
+                price: p.price,
+                category: p.category,
+                description: p.description,
+                image: p.images && p.images.length > 0 ? p.images[0] : null
+            }));
+            setProducts(mappedProducts);
+
+            // Dynamically generate filters
+            const categories = ['All', ...new Set(fetchedProducts.map(p => p.category))];
+            setFilters(categories);
+        }
+      } catch (err) {
+        console.error("API Error:", err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // 2. Scroll Handling
   useEffect(() => {
     if (location.state?.scrollToShop) {
       const element = document.getElementById('shop-section');
       if (element) {
         setTimeout(() => {
-          const offset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }, 100); // Small delay to ensure DOM is ready
+          const offset = 120;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }, 100);
       }
       window.history.replaceState({}, document.title);
     }
   }, [location]);
+
+  const filteredProducts = activeFilter === 'All' 
+    ? products 
+    : products.filter(p => p.category === activeFilter);
 
   return (
     <div className="bg-rout-paper">
@@ -62,27 +69,46 @@ const Home = () => {
       {/* Brand Manifesto */}
       <Manifesto />
       
-      {/* Product Grid Section */}
-      <section id="shop-section" className="py-32 px-6">
+      {/* Shop Collection Section (Full Shop Integrated) */}
+      <section id="shop-section" className="py-24 px-6 bg-white border-t border-rout-soot/5">
         <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
-                <div className="max-w-xl">
-                    <span className="text-rout-matcha uppercase tracking-[0.3em] text-xs font-bold mb-4 block">The Collection</span>
-                    <h2 className="font-serif text-5xl md:text-6xl text-rout-soot leading-tight">
-                        Artisanal Powders <br/> <span className="italic opacity-50 text-3xl font-light">for the Modern Ritual.</span>
-                    </h2>
-                </div>
-                <p className="text-rout-soot/40 text-sm max-w-[200px] font-sans leading-relaxed text-right uppercase tracking-tighter">
-                    Sustainably sourced. <br/> Manually processed. <br/> Zero Compromise.
-                </p>
-            </div>
-           
-           {/* 3-Column Grid */}
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-              {PRODUCTS.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
-              ))}
+           {/* Header */}
+           <div className="text-center mb-12">
+              <h2 className="font-serif text-4xl text-rout-soot mb-4">Shop The Collection</h2>
+              <p className="text-rout-soot/60 max-w-xl mx-auto font-light text-sm">
+                  Sustainably sourced from single-estate farms. Processed by hand.
+              </p>
            </div>
+           
+           {/* Filters */}
+           <div className="flex justify-center gap-6 mb-12 overflow-x-auto py-2">
+                {filters.map((filter) => (
+                    <button 
+                        key={filter}
+                        onClick={() => setActiveFilter(filter)}
+                        className={`text-xs uppercase tracking-widest transition-colors ${
+                            activeFilter === filter 
+                            ? 'text-rout-matcha font-bold border-b border-rout-matcha pb-1' 
+                            : 'text-rout-soot/40 hover:text-rout-soot'
+                        }`}
+                    >
+                        {filter}
+                    </button>
+                ))}
+           </div>
+
+           {/* Dynamic Grid */}
+           {filteredProducts.length > 0 ? (
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                  {filteredProducts.map((product, index) => (
+                      <ProductCard key={product.id} product={product} index={index} />
+                  ))}
+               </div>
+           ) : (
+               <div className="text-center py-20 text-rout-soot/40 italic">
+                   {loading ? "Curating the finest ritual..." : "No products found in this category."}
+               </div>
+           )}
         </div>
       </section>
 

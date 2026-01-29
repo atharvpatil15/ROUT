@@ -6,7 +6,10 @@ dotenv.config({ path: './.env' });
 const app = require('./app');
 
 // Connect to Database
-mongoose.connect(process.env.DB_URL).then(() => console.log('DB Connection Successful!'));
+const db = process.env.DB_URL || process.env.MONGO_URI;
+mongoose.connect(db)
+  .then(() => console.log('DB Connection Successful! Managed by Atlas.'))
+  .catch(err => console.error('DB Connection Error:', err));
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {

@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'A product must have a category'],
-    enum: ['Green', 'Black', 'Oolong', 'White', 'Herbal', 'Matcha', 'Pu-erh', 'Blends'],
+    enum: ['Green', 'Black', 'Oolong', 'White', 'Herbal', 'Matcha', 'Pu-erh', 'Blends', 'Spiced', 'Pure'],
   },
   origin: {
     type: String,
