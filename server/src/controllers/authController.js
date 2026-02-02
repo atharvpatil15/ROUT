@@ -29,9 +29,9 @@ const createSendToken = (user, statusCode, res, redirectUrl = null) => {
 
   res.cookie('jwt', token, cookieOptions);
 
-  // If redirected (OAuth), we redirect to frontend
+  // If redirected (OAuth), we redirect to frontend with token
   if (redirectUrl) {
-    return res.redirect(redirectUrl);
+    return res.redirect(`${redirectUrl}?token=${token}`);
   }
 
   // Remove password from output
@@ -39,7 +39,7 @@ const createSendToken = (user, statusCode, res, redirectUrl = null) => {
 
   res.status(statusCode).json({
     status: 'success',
-    token,
+    token, // Send token in body for localStorage
     data: {
       user,
     },
