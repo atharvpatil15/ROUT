@@ -62,9 +62,10 @@ const About = () => {
                     <h2 className="font-serif text-4xl md:text-5xl text-rout-soot leading-tight">
                         The Analog <br/> <span className="italic text-rout-matcha">Reset Button.</span>
                     </h2>
-                    <p className="text-rout-soot/70 text-lg leading-relaxed font-light">
-                        ROUT is a rebellion against speed. When you brew loose-leaf tea, you cannot rush. You must wait for the water. You must watch the leaves unfurl.
-                    </p>
+        <p className="text-rout-soot/70 text-lg leading-relaxed font-light">
+          ROUT is a rebellion against speed. When you brew loose-leaf tea, you cannot rush. You must wait for the water. You must watch the leaves unfurl.
+          It forces you to stop. To breathe. To exist in the physical world for just a moment.
+        </p>
                     <p className="text-rout-soot/70 text-lg leading-relaxed font-light">
                         That 5-minute pause is not "wasted time." It is the moment your nervous system downshifts. It is a boundary you draw between yourself and the noise.
                     </p>

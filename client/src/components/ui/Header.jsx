@@ -28,8 +28,7 @@ const Header = () => {
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className="fixed top-0 left-0 right-0 z-50 bg-rout-paper/80 backdrop-blur-md border-b border-rout-soot/5 h-20 flex items-center"
     >
-      <div className="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
-        {/* Logo */}
+      <div className="container mx-auto px-6 flex items-center justify-between h-full">
         <Link to="/" className="font-serif text-3xl font-bold text-rout-soot tracking-tight">
           ROUT
         </Link>

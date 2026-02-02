@@ -76,12 +76,12 @@ const Auth = () => {
         <div className="w-full max-w-md bg-white/40 backdrop-blur-sm p-10 rounded-3xl border border-white/50 shadow-sm">
             
             {/* Header */}
-            <div className="text-center mb-10">
-                <h1 className="font-decorative text-4xl text-rout-soot mb-2">ROUT</h1>
-                <p className="text-rout-soot/50 text-xs uppercase tracking-[0.2em]">
-                    {isLogin ? 'Welcome Back' : 'Begin Your Journey'}
-                </p>
-            </div>
+        <div className="mb-10 text-center">
+          <h1 className="font-decorative text-4xl text-rout-soot mb-2">ROUT</h1>
+          <p className="text-rout-soot/50 text-xs uppercase tracking-[0.2em]">
+            Member Access
+          </p>
+        </div>
 
             {/* Error Message */}
             {error && (

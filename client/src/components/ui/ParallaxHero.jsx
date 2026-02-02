@@ -58,14 +58,11 @@ const ParallaxHero = () => {
           Established 2026
         </motion.span>
         
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="font-decorative text-6xl md:text-8xl lg:text-[10rem] text-white mb-6 leading-none"
-        >
-          ROUT
-        </motion.h1>
+      <motion.h1 
+        className="font-decorative text-[12vw] md:text-[15vw] leading-none text-rout-paper z-10 select-none tracking-tighter"
+      >
+        ROUT
+      </motion.h1>
 
         <motion.p 
             initial={{ opacity: 0 }}
