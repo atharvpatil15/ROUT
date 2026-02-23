@@ -15,21 +15,43 @@ const loginSchema = z.object({
   }),
 });
 
+const productBodySchema = z.object({
+  name: z.string().min(3),
+  description: z.string().min(10),
+  price: z.coerce.number().positive(),
+  category: z.enum(['Green', 'Black', 'Oolong', 'White', 'Herbal', 'Matcha', 'Pu-erh', 'Blends', 'Spiced', 'Pure']),
+  origin: z.string().min(2),
+  weight: z.coerce.number().positive(),
+  steepingInstructions: z.object({
+    temperature: z.coerce.number().min(0).max(100),
+    time: z.coerce.number().positive(),
+  }),
+  stock: z.coerce.number().int().nonnegative(),
+  images: z.array(z.string().url()).optional(),
+  isFeatured: z.boolean().optional(),
+});
+
 const productSchema = z.object({
+  body: productBodySchema,
+});
+
+const productUpdateSchema = z.object({
   body: z.object({
-    name: z.string().min(3),
-    description: z.string().min(10),
-    price: z.number().positive(),
-    category: z.enum(['Green', 'Black', 'Oolong', 'White', 'Herbal', 'Matcha', 'Pu-erh', 'Blends']),
-    origin: z.string(),
-    weight: z.number().positive(),
+    name: z.string().min(3).optional(),
+    description: z.string().min(10).optional(),
+    price: z.coerce.number().positive().optional(),
+    category: z.enum(['Green', 'Black', 'Oolong', 'White', 'Herbal', 'Matcha', 'Pu-erh', 'Blends', 'Spiced', 'Pure']).optional(),
+    origin: z.string().min(2).optional(),
+    weight: z.coerce.number().positive().optional(),
     steepingInstructions: z.object({
-      temperature: z.number().min(0).max(100),
-      time: z.number().positive(),
-    }),
-    stock: z.number().int().nonnegative(),
+      temperature: z.coerce.number().min(0).max(100).optional(),
+      time: z.coerce.number().positive().optional(),
+    }).optional(),
+    stock: z.coerce.number().int().nonnegative().optional(),
     images: z.array(z.string().url()).optional(),
     isFeatured: z.boolean().optional(),
+  }).refine((data) => Object.keys(data).length > 0, {
+    message: 'At least one field is required for update',
   }),
 });
 
@@ -54,5 +76,6 @@ module.exports = {
   registerSchema,
   loginSchema,
   productSchema,
+  productUpdateSchema,
   validate,
 };

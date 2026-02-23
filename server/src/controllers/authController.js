@@ -17,21 +17,21 @@ const signToken = (id) => {
 
 const createSendToken = (user, statusCode, res, redirectUrl = null) => {
   const token = signToken(user._id);
+  const isProd = process.env.NODE_ENV === 'production';
+  const cookieDays = Number(process.env.COOKIE_EXPIRY) || 7;
 
   const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.COOKIE_EXPIRY * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + cookieDays * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: true, // Force Secure (HTTPS)
-    sameSite: 'none', // Force SameSite None for cross-origin
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
   };
 
   res.cookie('jwt', token, cookieOptions);
 
-  // If redirected (OAuth), we redirect to frontend with token
+  // OAuth flow: session cookie is set, then redirect to frontend
   if (redirectUrl) {
-    return res.redirect(`${redirectUrl}?token=${token}`);
+    return res.redirect(redirectUrl);
   }
 
   // Remove password from output
@@ -84,9 +84,12 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
+  const isProd = process.env.NODE_ENV === 'production';
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
   });
   res.status(200).json({ status: 'success' });
 };
@@ -101,6 +104,6 @@ exports.getMe = (req, res) => {
 // Google Callback Controller
 exports.googleCallback = (req, res) => {
   // Passport attaches user to req.user
-  const frontendUrl = 'https://rout-seven.vercel.app'; 
+  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
   createSendToken(req.user, 200, res, frontendUrl); 
 };

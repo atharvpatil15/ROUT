@@ -5,6 +5,7 @@ const authMiddleware = require('../middleware/authMiddleware'); // For protect
 const { validate, registerSchema, loginSchema } = require('../utils/validation');
 
 const router = express.Router();
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // Email/Password
 router.post('/register', validate(registerSchema), authController.register);
@@ -16,7 +17,7 @@ router.get('/me', authMiddleware.protect, authController.getMe);
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get(
   '/google/callback',
-  passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+  passport.authenticate('google', { session: false, failureRedirect: `${frontendUrl}/login` }),
   authController.googleCallback
 );
 

@@ -3,3 +3,12 @@
 *.env
 server/.env
 client/.env
+next-client/.env.local
+
+# dependencies/build
+node_modules/
+server/node_modules/
+client/node_modules/
+next-client/node_modules/
+next-client/.next/
+next-client/out/

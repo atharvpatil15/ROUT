@@ -1,24 +1,63 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 require('./config/passport');
 const authRouter = require('./routes/authRoutes');
 const productRouter = require('./routes/productRoutes');
+const orderRouter = require('./routes/orderRoutes');
 
 const app = express();
-
-// Required for secure cookies on Render
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Required for secure cookies on Render
 app.set('trust proxy', 1);
 
 // 1) GLOBAL MIDDLEWARES
+// Secure HTTP headers.
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
+
+// Deterministic CSP for Next.js + trusted assets.
+app.use((req, res, next) => {
+  const scriptSrc = isProduction
+    ? "script-src 'self' 'unsafe-inline'"
+    : "script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+  const connectSrc = isProduction
+    ? "connect-src 'self'"
+    : "connect-src 'self' ws://localhost:5000 http://localhost:5000";
+
+  const csp = [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "frame-ancestors 'self'",
+    "form-action 'self'",
+    "object-src 'none'",
+    scriptSrc,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: blob: https://images.unsplash.com https://www.svgrepo.com https://placehold.co",
+    "font-src 'self' data: https://fonts.gstatic.com",
+    connectSrc,
+    ...(isProduction ? ["upgrade-insecure-requests"] : []),
+  ].join('; ');
+
+  res.setHeader('Content-Security-Policy', csp);
+  next();
+});
+
 // Implement CORS
 const allowedOrigins = [
+  'http://localhost:5000',
   'http://localhost:5173',
+  'http://localhost:3000',
   'https://rout-seven.vercel.app',
-  'https://rout-seven.vercel.app/' // Add version with slash just in case
-];
+  process.env.FRONTEND_URL,
+  process.env.RENDER_EXTERNAL_URL,
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -34,7 +73,7 @@ app.use(cors({
     });
 
     if (!isAllowed) {
-      var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     }
     
@@ -53,12 +92,21 @@ app.use(cookieParser());
 // 2) ROUTES
 app.use('/api/v1/users', authRouter);
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/orders', orderRouter);
 
-// 3) UNHANDLED ROUTES
-app.all('*', (req, res, next) => {
+// 3) UNHANDLED API ROUTES
+app.all('/api/*', (req, res, next) => {
   res.status(404).json({
     status: 'fail',
     message: `Can't find ${req.originalUrl} on this server!`
+  });
+});
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).json({
+    status: 'fail',
+    message: err.message || 'Internal server error',
   });
 });
 

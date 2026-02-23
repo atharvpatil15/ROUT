@@ -1,11 +1,13 @@
 {
-  "name": "rout-server",
+  "name": "threaded-leaves-server",
   "version": "1.0.0",
-  "description": "Backend API for ROUT Premium Tea E-commerce",
-  "main": "src/server.js",
+  "description": "Backend API for Threaded Leaves Premium Tea E-commerce",
+  "main": "src/mergedServer.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node src/server.js"
+    "start": "node src/mergedServer.js",
+    "dev": "node src/mergedServer.js",
+    "start:api": "node src/server.js",
+    "dev:api": "node src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,8 +19,11 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
+    "next": "^15.0.0",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

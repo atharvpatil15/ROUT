@@ -2,9 +2,7 @@ const Product = require('../models/Product');
 
 exports.getAllProducts = async (req, res) => {
   try {
-    console.log("GET /products request received");
     const products = await Product.find().sort({ createdAt: -1 });
-    console.log(`Found ${products.length} products`);
     
     res.status(200).json({
       status: 'success',
@@ -14,8 +12,7 @@ exports.getAllProducts = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error("Error in getAllProducts:", error);
-    res.status(404).json({
+    res.status(500).json({
       status: 'fail',
       message: error.message
     });
@@ -24,9 +21,7 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    console.log("POST /products body:", req.body);
     const newProduct = await Product.create(req.body);
-    console.log("Product created successfully:", newProduct._id);
     
     res.status(201).json({
       status: 'success',
@@ -35,7 +30,6 @@ exports.createProduct = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error("Error creating product:", error);
     res.status(400).json({
       status: 'fail',
       message: error.message
