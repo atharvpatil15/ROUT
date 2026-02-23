@@ -107,3 +107,38 @@ exports.googleCallback = (req, res) => {
   const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
   createSendToken(req.user, 200, res, frontendUrl); 
 };
+
+exports.updateMe = async (req, res) => {
+  try {
+    // 1) Error if user posts password data
+    if (req.body.password) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'This route is not for password updates. Please use /updateMyPassword.',
+      });
+    }
+
+    // 2) Filtered out unwanted fields names that are not allowed to be updated
+    const filteredBody = {};
+    if (req.body.name) filteredBody.name = req.body.name;
+    if (req.body.email) filteredBody.email = req.body.email;
+
+    // 3) Update user document
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user: updatedUser,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err.message,
+    });
+  }
+};

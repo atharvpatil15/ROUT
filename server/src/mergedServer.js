@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const lifecycleEvent = process.env.npm_lifecycle_event;
 
-// Hard-set runtime mode by script to avoid env mismatch issues.
-if (lifecycleEvent === 'start') {
+// Robust environment detection
+const isProduction = process.env.NODE_ENV === 'production' || lifecycleEvent === 'start';
+const dev = !isProduction && lifecycleEvent === 'dev';
+
+if (isProduction) {
   process.env.NODE_ENV = 'production';
-} else if (lifecycleEvent === 'dev') {
+} else {
   process.env.NODE_ENV = 'development';
 }
 

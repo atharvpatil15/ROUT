@@ -12,6 +12,7 @@ router.post('/register', validate(registerSchema), authController.register);
 router.post('/login', authController.loginLimiter, validate(loginSchema), authController.login);
 router.get('/logout', authController.logout);
 router.get('/me', authMiddleware.protect, authController.getMe);
+router.patch('/updateMe', authMiddleware.protect, authController.updateMe);
 
 // Google OAuth
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

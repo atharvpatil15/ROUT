@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import api from '../services/api';
+import { useRouter } from 'next/navigation';
 
 // Schema Validation
 const checkoutSchema = z.object({
@@ -19,14 +21,50 @@ const checkoutSchema = z.object({
 });
 
 const Checkout = () => {
-  const { cartTotal, items } = useCart();
+  const { cartTotal, items, removeFromCart } = useCart();
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(checkoutSchema)
   });
 
-  const onSubmit = (data) => {
-    console.log("Processing Order:", data);
-    alert("Order successfully placed! (Mock)");
+  const onSubmit = async (data) => {
+    try {
+      setIsSubmitting(true);
+      
+      const orderData = {
+        items: items.map(item => ({
+          product: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image
+        })),
+        totalAmount: cartTotal,
+        shippingAddress: {
+          street: data.address,
+          city: data.city,
+          zipCode: data.zipCode,
+          country: "USA" // Default for now
+        },
+        paymentStatus: 'paid' // Mocking successful payment
+      };
+
+      const res = await api.post('/orders', orderData);
+      
+      if (res.data.status === 'success') {
+        // Clear cart
+        items.forEach(item => removeFromCart(item.id));
+        
+        alert("Order successfully placed!");
+        router.push('/profile');
+      }
+    } catch (err) {
+      console.error("Order failed:", err);
+      alert(err.response?.data?.message || "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const InputField = ({ label, name, type = "text", placeholder }) => (
@@ -89,9 +127,12 @@ const Checkout = () => {
 
             <button 
                 type="submit" 
-                className="w-full bg-brand-matcha text-white py-4 mt-8 hover:bg-[#3A4A1C] transition-colors duration-300 font-medium tracking-wide"
+                disabled={isSubmitting || items.length === 0}
+                className={`w-full text-white py-4 mt-8 transition-colors duration-300 font-medium tracking-wide ${
+                  isSubmitting || items.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-brand-matcha hover:bg-[#3A4A1C]'
+                }`}
             >
-                Confirm & Pay ${cartTotal.toFixed(2)}
+                {isSubmitting ? 'Processing Ritual...' : `Confirm & Pay $${cartTotal.toFixed(2)}`}
             </button>
           </form>
         </motion.div>
