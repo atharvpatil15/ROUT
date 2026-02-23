@@ -22,8 +22,6 @@ dotenv.config();
 
 const app = require('./app');
 
-const dev = lifecycleEvent === 'dev';
-const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 5000;
 const db = process.env.DB_URL || process.env.MONGO_URI;
 
