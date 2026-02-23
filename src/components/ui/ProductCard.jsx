@@ -39,10 +39,10 @@ const ProductCard = ({ product, index }) => {
         />
         
         {/* Quick Add Overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors duration-700 flex items-end justify-center pb-6">
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors duration-700 flex items-end justify-center pb-4 md:pb-6">
             <button
                 onClick={handleAction}
-                className="bg-black text-white px-5 py-2.5 rounded-none text-[9px] font-bold uppercase tracking-[0.2em] opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl hover:bg-tl-matcha hover:text-white"
+                className="bg-black text-white px-4 md:px-5 py-2 md:py-2.5 rounded-none text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em] opacity-100 translate-y-0 md:opacity-0 md:translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl hover:bg-tl-matcha hover:text-white"
             >
                 Add to Ritual
             </button>

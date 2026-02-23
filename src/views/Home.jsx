@@ -114,12 +114,12 @@ const Home = () => {
            </div>
            
            {/* Filters */}
-           <div className="flex justify-center gap-10 mb-16 overflow-x-auto py-4">
+           <div className="flex justify-start md:justify-center gap-6 md:gap-10 mb-12 md:mb-16 overflow-x-auto no-scrollbar py-4 -mx-6 px-6 md:mx-0 md:px-0">
                 {filters.map((filter) => (
                     <button 
                         key={filter}
                         onClick={() => setActiveFilter(filter)}
-                        className={`text-[10px] uppercase tracking-[0.3em] font-semibold transition-all border-b-2 pb-1 ${
+                        className={`text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-semibold transition-all border-b-2 pb-1 whitespace-nowrap ${
                             activeFilter === filter 
                             ? 'text-black border-black' 
                             : 'text-black/30 border-transparent hover:text-black/60'
@@ -132,7 +132,7 @@ const Home = () => {
 
            {/* Dynamic Grid */}
            {filteredProducts.length > 0 ? (
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-10">
                   {filteredProducts.map((product, index) => (
                       <ProductCard key={product.id} product={product} index={index} />
                   ))}

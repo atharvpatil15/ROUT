@@ -64,7 +64,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative h-[95vh] w-full overflow-hidden bg-black">
+    <section className="relative w-full aspect-video md:h-[95vh] overflow-hidden bg-black">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -74,7 +74,7 @@ const HeroCarousel = () => {
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          {/* Background Image - Zoomed out (object-contain or reduced scale) */}
+          {/* Background Image */}
           <div className="absolute inset-0 z-0 bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
              <motion.img 
                initial={{ scale: 0.95 }}
@@ -82,33 +82,33 @@ const HeroCarousel = () => {
                transition={{ duration: 10, ease: "linear" }}
                src={slides[current].image.src || slides[current].image} 
                alt="Hero" 
-               className="w-full h-full object-contain object-right md:object-right-bottom opacity-80" 
+               className="w-full h-full object-contain object-center md:object-right-bottom opacity-80" 
              />
-             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent" />
+             <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black via-black/40 to-transparent" />
           </div>
 
           {/* Content - Aligned Left with Gradient Text */}
-          <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center items-start text-left">
+          <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center items-center md:items-start text-center md:text-left">
              <motion.div
-                initial={{ x: -50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="max-w-3xl"
              >
-                <h1 className={`text-6xl md:text-[7rem] font-serif leading-[1] mb-8 italic bg-gradient-to-br ${slides[current].accent} bg-clip-text text-transparent`}>
+                <h1 className={`text-4xl md:text-6xl lg:text-[7rem] font-serif leading-[1.1] md:leading-[1] mb-6 md:mb-8 italic bg-gradient-to-br ${slides[current].accent} bg-clip-text text-transparent`}>
                   {slides[current].title}
                 </h1>
                 
-                <p className="text-sm md:text-xl text-white/60 font-sans tracking-wide mb-12 max-w-xl font-light leading-relaxed">
+                <p className="text-xs md:text-xl text-white/60 font-sans tracking-wide mb-8 md:mb-12 max-w-xl font-light leading-relaxed mx-auto md:mx-0">
                   {slides[current].subtitle}
                 </p>
 
                 <button 
                   onClick={scrollToShop}
-                  className="group relative px-12 py-5 overflow-hidden border border-white/20 hover:border-white transition-colors duration-500"
+                  className="group relative px-8 md:px-12 py-4 md:py-5 overflow-hidden border border-white/20 hover:border-white transition-colors duration-500"
                 >
                     <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                    <span className="relative text-white group-hover:text-black font-sans text-xs uppercase tracking-[0.4em] font-bold">
+                    <span className="relative text-white group-hover:text-black font-sans text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">
                         Explore Collection
                     </span>
                 </button>
