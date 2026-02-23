@@ -1,6 +1,8 @@
 # env files
 .env
 *.env
+node_modules
+.next
 server/.env
 client/.env
 next-client/.env.local
