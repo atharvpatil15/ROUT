@@ -25,6 +25,7 @@ const productBodySchema = z.object({
   steepingInstructions: z.object({
     temperature: z.coerce.number().min(0).max(100),
     time: z.coerce.number().positive(),
+    amount: z.string().optional(),
   }),
   stock: z.coerce.number().int().nonnegative(),
   images: z.array(z.string().url()).optional(),
@@ -46,6 +47,7 @@ const productUpdateSchema = z.object({
     steepingInstructions: z.object({
       temperature: z.coerce.number().min(0).max(100).optional(),
       time: z.coerce.number().positive().optional(),
+      amount: z.string().optional(),
     }).optional(),
     stock: z.coerce.number().int().nonnegative().optional(),
     images: z.array(z.string().url()).optional(),

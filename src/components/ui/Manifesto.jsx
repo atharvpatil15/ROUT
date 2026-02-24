@@ -21,8 +21,8 @@ const Manifesto = () => {
   const opacity3 = useTransform(scrollYProgress, [0.6, 0.9], [0, 1]);
 
   return (
-    <section ref={containerRef} className="py-24 md:py-40 px-6 bg-white text-black relative overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center space-y-20 md:space-y-32 relative z-10">
+    <section ref={containerRef} className="py-12 md:py-24 px-6 bg-white text-black relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center space-y-10 md:space-y-20 relative z-10">
             
             {/* Stanza 1: The Problem */}
             <motion.div style={{ y: y1, opacity: opacity1 }} className="space-y-4 md:space-y-6">
@@ -48,7 +48,7 @@ const Manifesto = () => {
             {/* Stanza 3: The Solution */}
             <motion.div style={{ y: y3, opacity: opacity3 }} className="space-y-6 md:space-y-8">
                 <span className="text-black/30 font-semibold text-[8px] md:text-[10px] tracking-[0.5em] uppercase mb-4 md:mb-8 block">03 / The Ritual</span>
-                <p className="font-serif text-4xl md:text-8xl text-black leading-none italic">
+                <p className="font-serif text-5xl md:text-8xl text-black leading-none italic">
                     Artisanal <br/>
                     <span className="text-tl-matcha">Stillness.</span>
                 </p>

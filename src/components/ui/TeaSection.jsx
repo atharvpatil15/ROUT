@@ -57,7 +57,7 @@ const TeaSection = ({ title, description, image, colorClass, align = 'left' }) =
                     <span className={`inline-block mb-4 text-xs font-bold tracking-widest uppercase ${colorClass.replace('bg-', 'text-')}`}>
                         Premium Selection
                     </span>
-                    <h2 className="font-serif text-5xl md:text-6xl text-tl-soot mb-8 leading-tight">
+                    <h2 className="font-serif text-4xl md:text-6xl text-tl-soot mb-8 leading-tight">
                         {title}
                     </h2>
                     <p className="text-lg text-tl-soot/70 font-light mb-10 leading-relaxed max-w-md">

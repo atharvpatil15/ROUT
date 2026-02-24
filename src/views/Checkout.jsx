@@ -98,7 +98,7 @@ const Checkout = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
         >
-          <h1 className="font-serif text-4xl mb-8 text-brand-charcoal">Checkout</h1>
+          <h1 className="font-serif text-3xl md:text-4xl mb-8 text-brand-charcoal">Checkout</h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <section>
               <h2 className="text-xl font-serif mb-6 flex items-center gap-3">

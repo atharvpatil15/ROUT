@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import logo from '../assets/TL Logo.png';
+import logo from '../assets/TL Logo.jpeg';
 import RollingText from './bits/RollingText';
 
 const Navbar = () => {
@@ -43,29 +43,54 @@ const Navbar = () => {
         Main Character Energy. 15% Off Your First Ritual.
       </div>
 
-      {/* 2. Minimalist Navbar */}
+      {/* 2. Navbar */}
       <nav className="bg-black/95 backdrop-blur-md border-b border-white/5 px-6 md:px-12 h-20 flex items-center">
         <div className="max-w-[1400px] mx-auto w-full flex justify-between items-center h-full">
           
-          {/* Left: Branding Placeholder or Empty for Symmetry */}
-          <div className="hidden lg:flex items-center gap-10">
-              <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-white/20">Studio Ziachi</span>
+          {/* Left: Branding */}
+          <div className="flex items-center">
+              <Link href="/" className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 hover:text-white transition-colors hidden lg:block">
+                Threaded Leaves
+              </Link>
           </div>
 
           {/* Center: Iconic Logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 group">
-             <div className="h-16 w-16 md:h-20 md:w-20 transition-all duration-700 flex items-center justify-center">
-                <img src={logo.src || logo} alt="Threaded Leaves" className="w-full h-full object-contain filter brightness-110 drop-shadow-sm scale-90" />
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 group z-10">
+             <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-[70px] md:w-[70px] transition-all duration-700 flex items-center justify-center rounded-full overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl">
+                <img src={logo.src || logo} alt="Threaded Leaves" className="w-full h-full object-cover filter brightness-110 transition-transform duration-700 group-hover:scale-110" />
              </div>
           </Link>
 
-          {/* Right: Minimalist Menu Trigger */}
-          <div className="flex items-center gap-4">
+          {/* Right: Desktop Links & Mobile Trigger */}
+          <div className="flex items-center gap-8">
+              {/* Desktop Navigation Links */}
+              <div className="hidden lg:flex items-center gap-8 text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">
+                <Link href="/" className="hover:text-tl-matcha transition-colors">Home</Link>
+                <a href="#shop-section" onClick={handleShopClick} className="hover:text-tl-matcha transition-colors cursor-pointer">Shop</a>
+                <Link href="/about" className="hover:text-tl-matcha transition-colors">About</Link>
+                <Link href="/contact" className="hover:text-tl-matcha transition-colors">Contact</Link>
+              </div>
+
+              {/* Desktop Utility Icons */}
+              <div className="hidden lg:flex items-center gap-6 border-l border-white/10 pl-8 ml-2">
+                <Link href={user ? "/profile" : "/login"} className="text-white/60 hover:text-tl-matcha transition-colors">
+                  <User size={18} strokeWidth={1.5} />
+                </Link>
+                <button onClick={toggleCart} className="text-white/60 hover:text-tl-matcha transition-colors relative">
+                  <ShoppingBag size={18} strokeWidth={1.5} />
+                  {items.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-tl-matcha text-black text-[8px] font-black h-4 w-4 rounded-full flex items-center justify-center">
+                      {items.length}
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* Mobile Menu Trigger (Visible only on mobile/tablet) */}
               <button 
-                className="text-white hover:text-tl-matcha transition-colors p-2 flex items-center gap-2 group" 
+                className="lg:hidden text-white hover:text-tl-matcha transition-colors p-2" 
                 onClick={() => setMobileMenu(true)}
               >
-                <span className="hidden md:block text-[10px] font-bold uppercase tracking-[0.3em] group-hover:pr-2 transition-all">Menu</span>
                 <Menu size={24} strokeWidth={1.5} />
               </button>
           </div>
@@ -84,8 +109,8 @@ const Navbar = () => {
           >
             {/* Menu Header */}
             <div className="flex justify-between items-center p-8 md:px-12 md:py-10">
-               <div className="h-12 w-12">
-                  <img src={logo.src || logo} alt="TL" className="w-full h-full object-contain brightness-200" />
+               <div className="h-16 w-16 rounded-full overflow-hidden border border-white/20 shadow-xl">
+                  <img src={logo.src || logo} alt="TL" className="w-full h-full object-cover brightness-110" />
                </div>
                <button onClick={() => setMobileMenu(false)} className="text-white/60 hover:text-white transition-colors">
                   <X size={32} strokeWidth={1}/>

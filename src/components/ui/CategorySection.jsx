@@ -37,7 +37,7 @@ const CategorySection = () => {
                         
                         <div className="absolute bottom-8 left-8">
                             <span className="text-white text-xs uppercase tracking-[0.2em] mb-2 block opacity-80">Shop</span>
-                            <h3 className="font-serif text-4xl text-white">{cat.name}</h3>
+                            <h3 className="font-serif text-3xl md:text-4xl text-white">{cat.name}</h3>
                         </div>
                     </Link>
                 ))}

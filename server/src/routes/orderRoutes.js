@@ -4,11 +4,19 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// All order routes are protected
-router.use(authMiddleware.protect);
+// GET all orders for Admin
+router.get('/all', authMiddleware.protect, authMiddleware.restrictTo('admin'), orderController.getAllOrders);
 
-router.post('/', orderController.createOrder);
-router.get('/my-orders', orderController.getMyOrders);
-router.get('/:id', orderController.getOrder);
+// User's own orders
+router.get('/my-orders', authMiddleware.protect, orderController.getMyOrders);
+
+// Create order
+router.post('/', authMiddleware.protect, orderController.createOrder);
+
+// Specific order detail
+router.get('/:id', authMiddleware.protect, orderController.getOrder);
+
+// Admin update status
+router.patch('/:id', authMiddleware.protect, authMiddleware.restrictTo('admin'), orderController.updateOrder);
 
 module.exports = router;

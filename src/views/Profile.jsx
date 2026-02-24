@@ -60,12 +60,12 @@ const Profile = () => {
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-black/5 pb-12">
           <div>
             <span className="text-tl-matcha font-semibold text-[10px] tracking-[0.4em] uppercase mb-4 block">My Account</span>
-            <h1 className="font-serif text-5xl md:text-6xl text-black italic">Welcome, {user.name.split(' ')[0]}</h1>
-            <p className="text-black/40 font-light mt-4 tracking-wide">{user.email}</p>
+            <h1 className="font-serif text-3xl md:text-6xl text-black italic">Welcome, {user.name.split(' ')[0]}</h1>
+            <p className="text-black/40 font-light mt-2 md:mt-4 tracking-wide text-sm md:text-base">{user.email}</p>
           </div>
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-black/40 hover:text-black transition-colors"
+            className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-black/40 hover:text-black transition-colors self-start md:self-auto"
           >
             <LogOut size={14} />
             Sign Out

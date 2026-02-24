@@ -32,27 +32,27 @@ const About = () => {
                 className="relative z-10 text-center max-w-5xl px-6"
             >
                 <span className="block text-white/90 text-xs font-bold uppercase tracking-[0.4em] mb-6 drop-shadow-md">The Philosophy</span>
-                <h1 className="font-decorative text-6xl md:text-8xl lg:text-9xl text-white leading-none mb-8 drop-shadow-xl">
-                    Stillness <br/> <span className="font-serif italic font-light opacity-90 text-4xl md:text-6xl tracking-normal">in a screaming world.</span>
+                <h1 className="font-decorative text-5xl md:text-8xl lg:text-9xl text-white leading-none mb-8 drop-shadow-xl">
+                    Stillness <br/> <span className="font-serif italic font-light opacity-90 text-3xl md:text-6xl tracking-normal">in a screaming world.</span>
                 </h1>
             </motion.div>
         </div>
 
         {/* 2. The Deep Dive (Scrollytelling Layout) */}
-        <section className="max-w-7xl mx-auto px-6 py-24 space-y-40">
+        <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24 md:space-y-40">
             
             {/* Chapter 1: The Problem */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div className="order-2 md:order-1 space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <div className="order-2 md:order-1 space-y-6 md:space-y-8">
                     <span className="text-tl-matcha font-mono text-xs uppercase tracking-widest">01 / The Noise</span>
-                    <h2 className="font-serif text-4xl md:text-5xl text-tl-soot leading-tight">
+                    <h2 className="font-serif text-3xl md:text-5xl text-tl-soot leading-tight">
                         You are running on <br/> <span className="italic text-tl-spice">empty fumes.</span>
                     </h2>
-                          <p className="text-tl-soot/70 text-lg leading-relaxed font-light">
+                          <p className="text-tl-soot/70 text-base md:text-lg leading-relaxed font-light">
                         We are the most connected generation in history, yet we feel the most isolated. 
                         Your brain wasn't designed to process 5,000 notifications a day. It was designed for silence. For focus. For flow.
                     </p>
-                    <p className="text-tl-soot/70 text-lg leading-relaxed font-light">
+                    <p className="text-tl-soot/70 text-base md:text-lg leading-relaxed font-light">
                         We realized that "Energy Drinks" were part of the problem. They borrow energy from tomorrow to fuel today. They create a debt of anxiety.
                     </p>
                 </div>
@@ -62,37 +62,37 @@ const About = () => {
             </div>
 
             {/* Chapter 2: The Solution */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
                 <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-sm">
                      <img src={toSrc(masalaImg)} alt="Ritual" className="w-full h-full object-cover sepia-[20%]" />
                 </div>
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                     <span className="text-tl-matcha font-mono text-xs uppercase tracking-widest">02 / The Cure</span>
-                    <h2 className="font-serif text-4xl md:text-5xl text-tl-soot leading-tight">
+                    <h2 className="font-serif text-3xl md:text-5xl text-tl-soot leading-tight">
                         The Analog <br/> <span className="italic text-tl-matcha">Reset Button.</span>
                     </h2>
-        <p className="text-tl-soot/70 text-lg leading-relaxed font-light">
+        <p className="text-tl-soot/70 text-base md:text-lg leading-relaxed font-light">
           Threaded Leaves is a rebellion against speed. When you brew loose-leaf tea, you cannot rush. You must wait for the water. You must watch the leaves unfurl.
           It forces you to stop. To breathe. To exist in the physical world for just a moment.
         </p>
-                    <p className="text-tl-soot/70 text-lg leading-relaxed font-light">
+                    <p className="text-tl-soot/70 text-base md:text-lg leading-relaxed font-light">
                         That 5-minute pause is not "wasted time." It is the moment your nervous system downshifts. It is a boundary you draw between yourself and the noise.
                     </p>
                 </div>
             </div>
 
             {/* Chapter 3: The Science */}
-            <div className="bg-tl-soot text-tl-paper p-12 md:p-24 rounded-3xl relative overflow-hidden">
-                <div className="relative z-10 max-w-3xl mx-auto text-center space-y-8">
+            <div className="bg-tl-soot text-tl-paper p-8 md:p-24 rounded-3xl relative overflow-hidden">
+                <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6 md:space-y-8">
                     <span className="text-tl-matcha font-mono text-xs uppercase tracking-widest">03 / The Chemistry</span>
-                    <h2 className="font-decorative text-4xl md:text-6xl leading-tight">
+                    <h2 className="font-decorative text-3xl md:text-6xl leading-tight">
                         L-Theanine + Caffeine
                     </h2>
-                    <p className="text-white/70 text-xl leading-relaxed font-light">
+                    <p className="text-white/70 text-lg md:text-xl leading-relaxed font-light">
                         Coffee gives you a spike. Tea gives you a slope. 
                         Our blends are high in <strong className="text-white">L-Theanine</strong>, a rare amino acid that promotes alpha brain waves (the state of "relaxed alertness").
                     </p>
-                    <p className="text-white/70 text-xl leading-relaxed font-light">
+                    <p className="text-white/70 text-lg md:text-xl leading-relaxed font-light">
                         Combined with gentle caffeine, it creates a state of <strong className="text-white">Stillness in Motion</strong>. No jitters. No crash. Just pure, sustainable clarity.
                     </p>
                 </div>

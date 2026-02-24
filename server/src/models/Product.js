@@ -37,6 +37,10 @@ const productSchema = new mongoose.Schema({
       type: Number, // In minutes
       required: true,
     },
+    amount: {
+      type: String, // e.g. "2.5g" or "1 tsp"
+      default: "2.5g",
+    },
   },
   stock: {
     type: Number,

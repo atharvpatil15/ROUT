@@ -6,6 +6,7 @@ require('./config/passport');
 const authRouter = require('./routes/authRoutes');
 const productRouter = require('./routes/productRoutes');
 const orderRouter = require('./routes/orderRoutes');
+const cloudinaryRouter = require('./routes/cloudinaryRoutes');
 
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -28,8 +29,8 @@ app.use((req, res, next) => {
     ? "script-src 'self' 'unsafe-inline'"
     : "script-src 'self' 'unsafe-inline' 'unsafe-eval'";
   const connectSrc = isProduction
-    ? "connect-src 'self'"
-    : "connect-src 'self' ws://localhost:5000 http://localhost:5000";
+    ? "connect-src 'self' https://api.cloudinary.com"
+    : "connect-src 'self' ws://localhost:5000 http://localhost:5000 https://api.cloudinary.com";
 
   const csp = [
     "default-src 'self'",
@@ -39,7 +40,7 @@ app.use((req, res, next) => {
     "object-src 'none'",
     scriptSrc,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "img-src 'self' data: blob: https://images.unsplash.com https://www.svgrepo.com https://placehold.co",
+    "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://www.svgrepo.com https://placehold.co",
     "font-src 'self' data: https://fonts.gstatic.com",
     connectSrc,
     ...(isProduction ? ["upgrade-insecure-requests"] : []),
@@ -90,9 +91,11 @@ app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 
 // 2) ROUTES
+app.get('/api/v1/test', (req, res) => res.json({ message: 'API is working' }));
 app.use('/api/v1/users', authRouter);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/orders', orderRouter);
+app.use('/api/v1/cloudinary', cloudinaryRouter);
 
 // 3) UNHANDLED API ROUTES
 app.all('/api/*', (req, res, next) => {

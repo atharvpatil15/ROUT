@@ -28,7 +28,8 @@ const ProductCard = ({ product, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.05 }}
-      className="group flex flex-col h-full bg-white border border-black/[0.05] p-3 hover:border-black/10 transition-all duration-500"
+      onClick={() => router.push(`/shop/${product.id}`)}
+      className="group flex flex-col h-full bg-white border border-black/[0.05] p-3 hover:border-black/10 transition-all duration-500 cursor-pointer"
     >
       {/* 1. Image Container - Smaller aspect ratio for smaller cards */}
       <div className="relative aspect-[3/4] overflow-hidden bg-[#F5F5F7] mb-5">

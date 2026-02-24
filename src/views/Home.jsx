@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import HeroCarousel from '../components/ui/HeroCarousel';
 import ProductCard from '../components/ui/ProductCard';
 import Manifesto from '../components/ui/Manifesto';
+import { motion } from 'framer-motion';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -99,14 +100,54 @@ const Home = () => {
       
       {/* Brand Manifesto */}
       <Manifesto />
+
+      {/* Compact Production-Level Value Pillars Section */}
+      <section className="py-12 md:py-20 bg-white border-b border-black/5">
+          <div className="max-w-7xl mx-auto px-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+                  {[
+                    {
+                      title: "Artisanal Purity",
+                      desc: "Single-estate farms. Hand-processed traditions.",
+                      icon: "01"
+                    },
+                    {
+                      title: "Engineered Stillness",
+                      desc: "Precision blended for relaxed alertness.",
+                      icon: "02"
+                    },
+                    {
+                      title: "Analog Connection",
+                      desc: "Escape the noise, one steep at a time.",
+                      icon: "03"
+                    }
+                  ].map((pillar, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.6 }}
+                      className="flex flex-col items-center text-center group border-l md:border-l-0 md:border-t border-black/5 pt-6 md:pt-8 pl-6 md:pl-0"
+                    >
+                      <span className="font-serif text-4xl text-tl-matcha/20 mb-2 italic">{pillar.icon}</span>
+                      <h3 className="font-serif text-xl md:text-2xl text-black mb-2 italic">{pillar.title}</h3>
+                      <p className="text-black/50 font-light text-xs md:text-sm leading-relaxed max-w-[200px]">
+                        {pillar.desc}
+                      </p>
+                    </motion.div>
+                  ))}
+              </div>
+          </div>
+      </section>
       
       {/* Shop Collection Section (Full Shop Integrated) */}
-      <section id="shop-section" className="py-24 px-6 bg-[#F9F7F2] border-t border-black/5">
+      <section id="shop-section" className="py-16 md:py-24 px-6 bg-[#F9F7F2]">
         <div className="max-w-7xl mx-auto">
            {/* Header */}
            <div className="text-center mb-16">
               <span className="text-tl-matcha font-semibold text-[10px] tracking-[0.4em] uppercase mb-4 block">Selected Rituals</span>
-              <h2 className="font-serif text-4xl md:text-6xl text-black mb-6 italic">Shop the Collection</h2>
+              <h2 className="font-serif text-3xl md:text-6xl text-black mb-6 italic">Shop the Collection</h2>
               <p className="text-black/50 max-w-xl mx-auto font-light text-sm tracking-wide leading-relaxed">
                   Sustainably sourced from single-estate farms. Processed by hand. <br/>
                   Engineered for stillness.
@@ -146,9 +187,9 @@ const Home = () => {
       </section>
 
       {/* Brand Ethos */}
-      <section className="py-32 border-t border-tl-soot/5">
+      <section className="py-24 md:py-32 border-t border-tl-soot/5">
           <div className="max-w-4xl mx-auto text-center px-6">
-              <p className="font-serif text-3xl md:text-4xl italic text-tl-soot/80 leading-snug">
+              <p className="font-serif text-2xl md:text-4xl italic text-tl-soot/80 leading-snug">
                   "We don't just sell tea. We engineer moments of stillness for a generation that never stops."
               </p>
           </div>
